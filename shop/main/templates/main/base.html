@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}
+      
+    {% endblock title %}</title>
+    <!-- stylesheet link -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- boostrap cdnj link -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#"><img src="{% static 'images/logo.png' %}" height="40px"
+            width="70px" alt="">Myshop</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Category
+                </a>
+                <ul class="dropdown-menu">
+                  {% for i in  category %}
+                  <li><a class="dropdown-item" href="/?category={{i.id}}">{{i.title}}</a></li>
+                  {% endfor %}
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Cart</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  My Account
+                </a>
+                <ul class="dropdown-menu">
+                  {% if request.user.is_authenticated %}
+                  <li><a class="dropdown-item" href="{% url 'log_out' %}">Logout</a></li>
+
+                  {% else %}
+                  
+                  <li><a class="dropdown-item" href="{% url 'log_in' %}">Login</a></li>
+
+                  {% endif %}
+                </ul>
+              </li>
+              
+            </ul>
+            <form class="d-flex" role="search" method="POST" action="{% url 'search_form' %}">
+              {% csrf_token %}
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searched">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+      {% block content %}
+        
+      {% endblock content %}
+      <!-- footer section start -->
+
+      <footer>
+        <div class="row"  id="">
+          <div class="col">
+            <div class="logo"><img src="{% static 'images/logo.png' %}" alt="" width="100px" height="70px"></div>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis eum doloribus illum distinctio? Aspernatur facere doloremque cum voluptates, voluptatem inventore quae cumque aliquam ad, consectetur magni laborum? Impedit, excepturi nesciunt.</p>
+
+
+          </div>
+          <div class="col">
+            <h3>About Us</h3>
+            
+          </div>
+          <div class="col">
+            <h3>Useful Links</h3>
+            <ul>
+              <li><a href="">Home</a></li>
+              <li><a href="">News</a></li>
+              <li><a href="">About Us</a></li>
+              <li><a href="">Sports</a></li>
+              <li><a href="">Contact</a></li>
+
+            </ul>
+          </div>
+          <div class="col">
+            <h3>Newsletter <div class="underline"><span></span></div></h3>
+            <form action="">
+              <i class="fa-solid fa-envelope"></i>
+              <input type="email" placeholder="Enter your Email">
+
+            </form>
+            <div class="social-icons">
+              <i class="fa-brands fa-facebook"><a href="https://www.facebook.com/sujan.thadarai/"></a></i>
+              <i class="fa-brands fa-twitter"><a href=""></a></i>
+              <i class="fa-brands fa-instagram"><a href=""></a></i>
+              <i class="fa-brands fa-whatsapp"><a href=""></a></i>
+
+
+            </div>
+            
+          </div>
+        </div>
+        <hr>
+        <p class="copyright"> Eccomerce 2024 © All Right Reserved </p>
+      </footer>
+
+
+
+      <!-- footer section end -->
+
+
+    
+   <!-- boostrap cdnj link -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

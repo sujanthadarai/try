@@ -1,0 +1,57 @@
+{% extends "main/base.html" %}
+{% block title %}
+  Shop
+{% endblock title %}
+{% block content %}
+{% load static %}
+
+{% if searched %}
+  
+
+<div class="container">
+  <div class="row">
+  <marquee behavior="" direction="">Welcome to Myshop </marquee>
+
+{% for data in finds %}
+    <div class="col">
+<div class="card" style="width: 18rem;">
+  <img src="{{data.image.url}}" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">{{data.name}}</h5>
+    <p class="card-text">{{data.decp}}</p>
+    <hr>
+    <p class="card-text">Price:Rs{{data.price}}</p>
+    <hr>
+    
+    <a href="#" class="btn btn-primary">Add to Cart</a>
+  </div>
+</div>
+</div>
+{% endfor %}
+</div>
+</div>
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    {% if user.has_previous %}   
+    <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
+    <li class="page-item"><a class="page-link" href="?page={{user.previous_page_number}}">Previous</a></li>
+    {% endif %}
+    {% for n in num %}
+    <li class="page-item"><a class="page-link" href="?page={{n}}">{{n}}</a></li>
+   
+    {% endfor %}
+    {% if user.has_next %}
+      
+    <li class="page-item"><a class="page-link" href="?page={{user.next_page_number}}">Next</a></li>
+    <li class="page-item"><a class="page-link" href="?page={{total}}">Last</a></li>
+    {% endif %}
+   
+
+
+  </ul>
+</nav>
+{% endif %}
+
+  
+{% endblock content %}
